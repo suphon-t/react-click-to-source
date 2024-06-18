@@ -22,14 +22,18 @@ const Container = css`
   gap: 4px;
   padding: 4px;
   color: black;
-  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 10px 15px -3px #0000001a,
+    0 4px 6px -4px #0000001a;
+  backdrop-filter: blur(16px) saturate(125%);
   border-radius: 6px;
   z-index: 99999;
 `
 
 const Layer = css`
   display: flex;
-  background: white;
+  background: transparent;
   border: none;
   flex-direction: column;
   padding: 2px 4px;
