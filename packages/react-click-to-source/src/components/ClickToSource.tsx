@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { ContextMenu } from './ContextMenu'
+import { ContextMenu, Position } from './ContextMenu'
 import { Overlay } from './Overlay'
 import { Target } from '../types'
 import { getEventTarget, getTargetInfo, launchEditor } from '../utils'
@@ -10,16 +10,17 @@ import { getEventTarget, getTargetInfo, launchEditor } from '../utils'
 export default function ClickToSource() {
   const [isEnabled, setIsEnabled] = useState(false)
   const [target, setTarget] = useState<Target | null>(null)
-  const [contextMenuTarget, setContextMenuTarget] = useState<Target | null>(
-    null
-  )
+  const [contextMenu, setContextMenu] = useState<{
+    target: Target
+    position: Position
+  } | null>(null)
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Alt') {
         setIsEnabled(true)
         setTarget(null)
-        setContextMenuTarget(null)
+        setContextMenu(null)
       }
     }
 
@@ -66,7 +67,14 @@ export default function ClickToSource() {
       event.stopPropagation()
 
       const info = getTargetInfo(getEventTarget(event))
-      setContextMenuTarget(info)
+      setContextMenu(
+        info
+          ? {
+              target: info,
+              position: { x: event.clientX, y: event.clientY },
+            }
+          : null
+      )
       setIsEnabled(false)
     }
 
@@ -107,13 +115,14 @@ export default function ClickToSource() {
     }
   }, [isEnabled])
 
-  if (contextMenuTarget !== null) {
+  if (contextMenu !== null) {
     return (
       <>
-        <Overlay target={contextMenuTarget} />
+        <Overlay target={contextMenu.target} />
         <ContextMenu
-          target={contextMenuTarget}
-          onDismiss={() => setContextMenuTarget(null)}
+          target={contextMenu.target}
+          position={contextMenu.position}
+          onDismiss={() => setContextMenu(null)}
         />
       </>
     )

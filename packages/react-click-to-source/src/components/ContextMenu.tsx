@@ -1,13 +1,12 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import {
-  FloatingArrow,
   FloatingOverlay,
   FloatingPortal,
-  arrow,
-  autoPlacement,
   autoUpdate,
+  flip,
   offset,
+  shift,
   useDismiss,
   useFloating,
   useInteractions,
@@ -64,35 +63,57 @@ const SourceLocation = css`
   }
 `
 
+export interface Position {
+  x: number
+  y: number
+}
+
 export function ContextMenu({
   target,
+  position,
   onDismiss,
 }: {
   target: Target
+  position: Position
   onDismiss?: () => void
 }) {
-  const arrowRef = useRef(null)
   const { refs, floatingStyles, context, isPositioned } = useFloating({
     open: true,
     onOpenChange: (open) => !open && onDismiss?.(),
     placement: 'right-start',
     middleware: [
-      autoPlacement({ alignment: 'start' }),
-      offset(4),
-      arrow({ element: arrowRef, padding: 8 }),
+      offset({
+        mainAxis: 1,
+        crossAxis: -4,
+      }),
+      flip({
+        crossAxis: false,
+        padding: 4,
+      }),
+      shift({
+        padding: 4,
+      }),
     ],
     whileElementsMounted: autoUpdate,
   })
+  useEffect(() => {
+    refs.setPositionReference({
+      getBoundingClientRect: () => ({
+        width: 0,
+        height: 0,
+        x: position.x,
+        y: position.y,
+        top: position.y,
+        left: position.x,
+        right: position.x,
+        bottom: position.y,
+      }),
+    })
+  }, [refs, position.x, position.y])
 
   const dismiss = useDismiss(context)
 
   const { getFloatingProps } = useInteractions([dismiss])
-
-  const { setReference } = refs
-  useEffect(() => {
-    setReference(target.element)
-    return () => setReference(null)
-  }, [setReference, target])
 
   const ownersWithSource = useMemo(
     () => target.owners.filter((fiber) => fiber._debugSource),
@@ -101,7 +122,7 @@ export function ContextMenu({
 
   return (
     <FloatingPortal>
-      <FloatingOverlay style={{ zIndex: 99999 }}>
+      <FloatingOverlay lockScroll style={{ zIndex: 99999 }}>
         <div
           ref={refs.setFloating}
           className={Container}
@@ -111,13 +132,6 @@ export function ContextMenu({
           }}
           {...getFloatingProps()}
         >
-          <FloatingArrow
-            ref={arrowRef}
-            context={context}
-            width={10}
-            height={5}
-            fill="white"
-          />
           {ownersWithSource.map((fiber, index) => {
             const source = fiber._debugSource!
             return (
