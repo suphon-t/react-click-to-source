@@ -1,12 +1,6 @@
 import { useEffect } from 'react'
 
-import {
-  autoUpdate,
-  flip,
-  offset,
-  shift,
-  useFloating,
-} from '@floating-ui/react'
+import { autoUpdate, offset, shift, useFloating } from '@floating-ui/react'
 import { css } from 'goober'
 
 import { Fiber, Target } from '../types'
@@ -50,8 +44,15 @@ export function Overlay({ target }: { target: Target }) {
     floatingStyles: tooltipFloatingStyles,
     isPositioned: tooltipIsPositioned,
   } = useFloating({
+    strategy: 'fixed',
     placement: 'bottom-start',
-    middleware: [offset(4), shift(), flip()],
+    middleware: [
+      offset(4),
+      shift({
+        crossAxis: true,
+        padding: 4,
+      }),
+    ],
     whileElementsMounted: autoUpdate,
   })
 
