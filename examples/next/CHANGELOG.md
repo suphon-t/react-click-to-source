@@ -1,5 +1,12 @@
 # example-next
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [b5fc3c7]
+  - react-click-to-source@0.0.3
+
 ## 0.1.2
 
 ### Patch Changes
