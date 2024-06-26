@@ -3,6 +3,10 @@
   "version": "0.0.2",
   "type": "module",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suphon-t/react-click-to-source.git"
+  },
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup"
