@@ -32,7 +32,7 @@ export default function ClickToSource() {
 
     function onBlur() {
       setIsEnabled(false)
-      // setContextMenuTarget(null)
+      setContextMenu(null)
     }
 
     window.addEventListener('keydown', onKeyDown)
