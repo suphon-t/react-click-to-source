@@ -1,5 +1,11 @@
 # react-click-to-source
 
+## 0.0.3
+
+### Patch Changes
+
+- b5fc3c7: Close context menu on blur
+
 ## 0.0.2
 
 ### Patch Changes
