@@ -185,7 +185,7 @@ export function ContextMenu({
 }
 
 function formatSourceFileName(fileName: string) {
-  const match = fileName.match(/((src|pages|app).*)$/)
+  const match = fileName.match(/((src|pages|app)\/.*)$/)
   if (!match) return fileName
   return match[1]
 }
