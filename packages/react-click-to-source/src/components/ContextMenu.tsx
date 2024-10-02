@@ -133,7 +133,10 @@ export function ContextMenu({
 
   return (
     <FloatingPortal>
-      <FloatingOverlay lockScroll style={{ zIndex: 99999 }}>
+      <FloatingOverlay
+        lockScroll
+        style={{ pointerEvents: 'auto', zIndex: 99999 }}
+      >
         <div
           ref={refs.setFloating}
           className={Container}
