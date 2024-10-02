@@ -1,5 +1,11 @@
 # react-click-to-source
 
+## 0.0.4
+
+### Patch Changes
+
+- 23a4e37: Introduce Vite support
+
 ## 0.0.3
 
 ### Patch Changes
