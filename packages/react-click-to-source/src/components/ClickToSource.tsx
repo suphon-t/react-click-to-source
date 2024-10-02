@@ -54,11 +54,11 @@ export function ClickToSource({
     if (!isEnabled) return
 
     function onClick(event: MouseEvent) {
-      event.preventDefault()
-      event.stopPropagation()
-
       const info = getTargetInfo(getEventTarget(event))
       if (!info) return
+
+      event.preventDefault()
+      event.stopPropagation()
       const source = info.owners.find(
         (fiber) => fiber._debugSource
       )?._debugSource
@@ -67,10 +67,11 @@ export function ClickToSource({
     }
 
     function onContextMenu(event: MouseEvent) {
+      const info = getTargetInfo(getEventTarget(event))
+      if (!info) return
+
       event.preventDefault()
       event.stopPropagation()
-
-      const info = getTargetInfo(getEventTarget(event))
       setContextMenu(
         info
           ? {
