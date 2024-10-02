@@ -82,11 +82,13 @@ export function ContextMenu({
   position,
   launchEditor,
   onDismiss,
+  formatSourceFileName = defaultFormatSourceFileName,
 }: {
   target: Target
   position: Position
   launchEditor: LaunchEditor
   onDismiss?: () => void
+  formatSourceFileName?: (fileName: string) => string
 }) {
   const { refs, floatingStyles, context, isPositioned } = useFloating({
     open: true,
@@ -184,7 +186,7 @@ export function ContextMenu({
   )
 }
 
-function formatSourceFileName(fileName: string) {
+function defaultFormatSourceFileName(fileName: string) {
   const match = fileName.match(/((src|pages|app)\/.*)$/)
   if (!match) return fileName
   return match[1]

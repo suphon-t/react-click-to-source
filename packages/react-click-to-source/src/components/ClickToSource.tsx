@@ -9,8 +9,10 @@ import { getEventTarget, getTargetInfo } from '../utils'
 
 export function ClickToSource({
   launchEditor,
+  formatSourceFileName,
 }: {
   launchEditor: LaunchEditor
+  formatSourceFileName?: (fileName: string) => string
 }) {
   const [isEnabled, setIsEnabled] = useState(false)
   const [target, setTarget] = useState<Target | null>(null)
@@ -129,6 +131,7 @@ export function ClickToSource({
           position={contextMenu.position}
           launchEditor={launchEditor}
           onDismiss={() => setContextMenu(null)}
+          formatSourceFileName={formatSourceFileName}
         />
       </>
     )

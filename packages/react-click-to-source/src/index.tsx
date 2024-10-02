@@ -4,17 +4,23 @@ import { launchEditorNextjs, launchEditorVite } from './utils'
 
 declare const process: any
 
+interface ClickToSourceProps {
+  formatSourceFileName?: (fileName: string) => string
+}
+
 export const ClickToSourceNextjs =
   process.env.NODE_ENV === 'development'
-    ? function ClickToSource() {
-        return <ClickToSourceImpl launchEditor={launchEditorNextjs} />
+    ? function ClickToSource(props: ClickToSourceProps) {
+        return (
+          <ClickToSourceImpl {...props} launchEditor={launchEditorNextjs} />
+        )
       }
     : () => null
 
 export const ClickToSourceVite =
   process.env.NODE_ENV === 'development'
-    ? function ClickToSource() {
-        return <ClickToSourceImpl launchEditor={launchEditorVite} />
+    ? function ClickToSource(props: ClickToSourceProps) {
+        return <ClickToSourceImpl {...props} launchEditor={launchEditorVite} />
       }
     : () => null
 
