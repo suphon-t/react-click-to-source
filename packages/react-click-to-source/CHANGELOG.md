@@ -1,5 +1,12 @@
 # react-click-to-source
 
+## 0.0.5
+
+### Patch Changes
+
+- e2d3bdb: Fix context menu focus with radix dialogs
+- cd20dea: Improve source file name formatting
+
 ## 0.0.4
 
 ### Patch Changes
