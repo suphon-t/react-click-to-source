@@ -169,7 +169,7 @@ export function ContextMenu({
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    {source.fileName.replace(/.*(src|pages)/, '$1')}
+                    {formatSourceFileName(source.fileName)}
                   </p>
                   <p>
                     {source.lineNumber}:{source.columnNumber}
@@ -182,4 +182,10 @@ export function ContextMenu({
       </FloatingOverlay>
     </FloatingPortal>
   )
+}
+
+function formatSourceFileName(fileName: string) {
+  const match = fileName.match(/((src|pages|app).*)$/)
+  if (!match) return fileName
+  return match[1]
 }
