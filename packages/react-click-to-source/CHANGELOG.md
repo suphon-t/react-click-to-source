@@ -1,5 +1,12 @@
 # react-click-to-source
 
+## 0.0.6
+
+### Patch Changes
+
+- 71b8e33: Allow custom source file name formatting
+- 3f86317: Ensure folder names are followed by slash
+
 ## 0.0.5
 
 ### Patch Changes
