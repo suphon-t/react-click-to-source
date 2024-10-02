@@ -16,3 +16,5 @@ export interface Target {
   fiber: Fiber
   owners: Fiber[]
 }
+
+export type LaunchEditor = (source: NonNullable<Fiber['_debugSource']>) => void

@@ -4,10 +4,14 @@ import { useEffect, useState } from 'react'
 
 import { ContextMenu, Position } from './ContextMenu'
 import { Overlay } from './Overlay'
-import { Target } from '../types'
-import { getEventTarget, getTargetInfo, launchEditor } from '../utils'
+import { LaunchEditor, Target } from '../types'
+import { getEventTarget, getTargetInfo } from '../utils'
 
-export default function ClickToSource() {
+export function ClickToSource({
+  launchEditor,
+}: {
+  launchEditor: LaunchEditor
+}) {
   const [isEnabled, setIsEnabled] = useState(false)
   const [target, setTarget] = useState<Target | null>(null)
   const [contextMenu, setContextMenu] = useState<{
@@ -113,7 +117,7 @@ export default function ClickToSource() {
       window.removeEventListener('pointermove', onPointerMove, true)
       window.removeEventListener('pointerup', onMouseEvent, true)
     }
-  }, [isEnabled])
+  }, [isEnabled, launchEditor])
 
   if (contextMenu !== null) {
     return (
@@ -122,6 +126,7 @@ export default function ClickToSource() {
         <ContextMenu
           target={contextMenu.target}
           position={contextMenu.position}
+          launchEditor={launchEditor}
           onDismiss={() => setContextMenu(null)}
         />
       </>

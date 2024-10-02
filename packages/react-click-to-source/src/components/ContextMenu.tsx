@@ -13,8 +13,8 @@ import {
 } from '@floating-ui/react'
 import { css } from 'goober'
 
-import { Target } from '../types'
-import { getDisplayNameForInstance, launchEditor } from '../utils'
+import { LaunchEditor, Target } from '../types'
+import { getDisplayNameForInstance } from '../utils'
 
 const Container = css`
   display: flex;
@@ -47,6 +47,7 @@ const Layer = css`
 `
 
 const ComponentName = css`
+  margin: 0;
   color: #2563eb;
   font-size: 14px;
 
@@ -65,6 +66,10 @@ const SourceLocation = css`
   .${Layer}:hover & {
     color: #d1d5db;
   }
+
+  & p {
+    margin: 0;
+  }
 `
 
 export interface Position {
@@ -75,10 +80,12 @@ export interface Position {
 export function ContextMenu({
   target,
   position,
+  launchEditor,
   onDismiss,
 }: {
   target: Target
   position: Position
+  launchEditor: LaunchEditor
   onDismiss?: () => void
 }) {
   const { refs, floatingStyles, context, isPositioned } = useFloating({

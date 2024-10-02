@@ -94,11 +94,18 @@ export function getDisplayNameForInstance(instance: Fiber) {
   }
 }
 
-export function launchEditor(source: NonNullable<Fiber['_debugSource']>) {
+export function launchEditorNextjs(source: NonNullable<Fiber['_debugSource']>) {
   const params = new URLSearchParams({
     file: source.fileName,
     lineNumber: String(source.lineNumber),
     column: String(source.columnNumber || 0),
   })
   fetch(`/__nextjs_launch-editor?${params}`)
+}
+
+export function launchEditorVite(source: NonNullable<Fiber['_debugSource']>) {
+  const params = new URLSearchParams({
+    file: `${source.fileName}:${source.lineNumber}:${source.columnNumber || 0}`,
+  })
+  fetch(`/__open-in-editor?${params}`)
 }
